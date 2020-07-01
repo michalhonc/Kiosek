@@ -20,7 +20,9 @@ export const FaceAPI = () => {
                         const detections = await faceapi.detectAllFaces(videoRef.current).withFaceLandmarks().withFaceDescriptors();
                         const results = detections.map((d: any) => faceMatcher.findBestMatch(d.descriptor));
                         console.log(results);
-                        setName(results[0].label);
+                        if (results[0]) {
+                            setName(results[0].label);
+                        }
 
                     }, 10000);
                 });
@@ -60,7 +62,7 @@ function startVideo(video: any) {
 function loadImages() {
     // GET /users
     // labels = [user[0].id];
-    const labels = ['michal-honc'];
+    const labels = ['michal-honc', 'simon-liman'];
     return Promise.all(
         labels.map(async (label) => {
             // fetchImage(`./faces/${user[0].id}.png`)

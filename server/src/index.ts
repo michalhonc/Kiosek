@@ -1,23 +1,26 @@
 import express from 'express';
 const app = express();
+import cors from 'cors';
 import { ApolloServer } from 'apollo-server';
 
-import * as user from './models/user.model';
-import * as db from './database';
+import { typeDefs, resolvers } from './graphql';
+import { db } from './database';
 
 const server = new ApolloServer({
-    typeDefs: [user.typeDefs],
-    resolvers: [user.resolvers],
+    typeDefs,
+    resolvers,
     playground: true,
     introspection: true,
 });
 
-db.db.once('open', () => {
+db.once('open', () => {
     console.log('DB connected..');
     server.listen().then(({ url }) => {
         console.log(`🚀  Server ready at ${url}`);
     });
 });
+
+app.use(cors());
 
 app.use(express.static('public'));
 

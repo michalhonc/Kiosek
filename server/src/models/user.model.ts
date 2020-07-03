@@ -21,12 +21,12 @@ export const typeDefs = gql`
         dept: Int
     }
 
-    type Query {
+    extend type Query {
         users: [User]
         user: User
     }
 
-    type Mutation {
+    extend type Mutation {
         addUser(name: String, email: String): User
         deleteUser(id: String): String
     }

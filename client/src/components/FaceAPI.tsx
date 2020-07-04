@@ -5,12 +5,13 @@ import * as faceapi from 'face-api.js';
 import { Loading } from './Loading';
 
 const StyledVideo = styled.video`
-    width: 100%;
-    height: 40rem;
     object-fit: cover;
-    box-shadow: 0 0 0.2rem 0 rgba(0,0,0,.1), 0 0.8rem 3rem -1.2rem rgba(0,0,0,.12);
-    background: #eee;
+    box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
     margin-bottom: 10rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 1.6rem;
 `;
 
 interface IProps {
@@ -37,6 +38,13 @@ export const FaceAPI = ({ setName, data }: IProps) => {
     const [state, setState] = useState<State>(State.UNKNOWN);
 
     useEffect(() => {
+
+        // DELETE ME
+        //setName('Michal Honc');
+        //setState(State.DETECTED);
+        //return;
+        // DELETE ME
+
         if (state !== State.DETECTED) {
             setState(State.DETECTING);
             loadModels()

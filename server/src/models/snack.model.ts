@@ -37,7 +37,7 @@ export const typeDefs = gql`
 
 export const resolvers = {
     Query: {
-        snacks: async () => await Snack.find({}),
+        snacks: async () => await Snack.find({ quantity: { $ne: 0 } }),
         // @ts-ignore
         snack: async (_, { id }) => {
             // @ts-ignore

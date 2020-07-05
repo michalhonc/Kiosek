@@ -4,22 +4,28 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 import { FaceAPI } from '../components/FaceAPI';
-import { SnackList } from '../components/SnackList';
+import { TransactionList } from '../components/TransactionList';
+import { ISnack, SnackList } from '../components/SnackList';
 
-const USERS = gql`
+const USERS_SNACKS = gql`
 {
     users {
         name
         email
         imgId
     }
+    snacks {
+        name
+        quantity
+        price
+        imgId
+        extra
+    }
 }
 `;
 
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    text-align: center;
 `;
 
 const Name = styled.span`
@@ -27,10 +33,18 @@ const Name = styled.span`
 `;
 
 const Header = styled.div`
+    flex: 1;
     display: flex;
-    height: 22rem;
     margin: 2rem;
     justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    height: calc(100vh - 4rem);
+`;
+
+const HeaderLeft = styled.div`
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
 `;
 
@@ -44,35 +58,34 @@ const H1 = styled.h1`
     font-size: 2.2rem;
 `;
 
-const HR = styled.hr`
-    margin: 2rem;
-    border: 1px solid #eee;
-`;
-
 export const Index = () => {
-    const { loading, error, data } = useQuery(USERS);
+    const { loading, error, data } = useQuery(USERS_SNACKS);
     const [name, setName] = useState<string>('');
-    const [snacks, setSnacks] = useState<string[]>([]);
+    const [snacks, setSnacks] = useState<ISnack[]>([]);
 
     return (
         <Wrapper>
-
             <Header>
-                <div>
+                <HeaderLeft>
                     <H1>Kiosek u Krastyho</H1>
                     <Name>Nakupujici: {name}</Name>
-                    {snacks.length > 0 && (
-                        <ul>
-                            {snacks.map(snack => <li>{snack}</li>)}
-                        </ul>
-                    )}
-                </div>
-                <FaceAPI setName={setName} data={data} />
+                    <span>Total: {snacks.reduce((a, b) => a + b.price, 0)}</span>
+                </HeaderLeft>
+                <FaceAPI
+                    setName={setName}
+                    data={data}
+                />
             </Header>
 
-            <HR />
+            <TransactionList
+                setSnacks={setSnacks}
+                snacks={snacks}
+            />
 
-            <SnackList setSnacks={setSnacks} />
+            <SnackList
+                setSnacks={setSnacks}
+                data={data}
+            />
         </Wrapper>
     );
 };

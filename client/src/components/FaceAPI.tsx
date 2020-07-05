@@ -8,7 +8,6 @@ const StyledVideo = styled.video`
     object-fit: cover;
     box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     background: #fff;
-    margin-bottom: 10rem;
     width: 20rem;
     height: 20rem;
     border-radius: 1.6rem;
@@ -40,9 +39,9 @@ export const FaceAPI = ({ setName, data }: IProps) => {
     useEffect(() => {
 
         // DELETE ME
-        //setName('Michal Honc');
-        //setState(State.DETECTED);
-        //return;
+        setName('Michal Honc');
+        setState(State.DETECTED);
+        return;
         // DELETE ME
 
         if (state !== State.DETECTED) {

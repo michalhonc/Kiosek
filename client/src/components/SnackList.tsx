@@ -1,19 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
-
-const SNACKS = gql`
-{
-    snacks {
-        name
-        price
-        quantity
-        imgId
-        extra
-    }
-}
-`;
 
 const Wrapper = styled.ul`
     display: flex;
@@ -21,6 +7,7 @@ const Wrapper = styled.ul`
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 2rem;
+    flex: 2;
 `;
 
 const ListItem = styled.li`
@@ -39,32 +26,43 @@ const ListItem = styled.li`
     }
 `;
 
+export interface ISnack {
+    name: string;
+    quantity: number;
+    price: number;
+    imgId: string;
+    extra?: string;
+}
+
 interface ISnackProps {
     snack: any;
-    setSnacks: (snacks: (item: string[]) => string[]) => void;
+    setSnacks: (snacks: (item: ISnack[]) => ISnack[]) => void;
+}
+
+interface ISnackListProps {
+    setSnacks: (snacks: (item: ISnack[]) => ISnack[]) => void;
+    data: {
+        snacks: ISnack[];
+    };
 }
 
 const Snack = ({ snack, setSnacks }: ISnackProps) => (
     <ListItem onClick={() => {
-        setSnacks((prevSnacks: string[]) => [ ...prevSnacks, snack.name]);
+        setSnacks((prevSnacks: ISnack[]) => [ ...prevSnacks, snack]);
     }}>
-        <img src={`http://localhost:4001/snacks/${snack.imgId}.jpg`} width="120" height="120" />
+        <img src={`http://localhost:4001/snacks/${snack.imgId}.jpg`} width="120" height="120" alt={snack.name} />
         <span>{snack.name}</span>
         {/*<span>{snack.price}</span>*/}
     </ListItem>
 );
 
-interface ISnackListProps {
-    setSnacks: (snacks: (item: string[]) => string[]) => void;
-}
 
-export const SnackList = ({ setSnacks }: ISnackListProps) => {
-    const { loading, error, data } = useQuery(SNACKS);
+export const SnackList = ({ setSnacks, data }: ISnackListProps) => {
 
     return (
         <Wrapper>
-            {data && data.snacks.map((snack: any) => (
-                <Snack key={snack.imgId} snack={snack} setSnacks={setSnacks} />
+            {data && data.snacks.map((snack: any, i) => (
+                <Snack key={i} snack={snack} setSnacks={setSnacks} />
             ))}
         </Wrapper>
     );

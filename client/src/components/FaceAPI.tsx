@@ -8,8 +8,8 @@ const StyledVideo = styled.video`
     object-fit: cover;
     box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     background: #fff;
-    width: 20rem;
-    height: 20rem;
+    width: 100%;
+    height: 30rem;
     border-radius: 1.6rem;
 `;
 

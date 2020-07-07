@@ -18,7 +18,10 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin: 2rem;
+    padding: 4rem 2rem;
+    margin: -2rem 0;
+    max-height: calc(100vh - 4rem);
+    overflow: auto;
 `;
 
 const ListItem = styled.li`
@@ -27,10 +30,10 @@ const ListItem = styled.li`
     background: #fff;
     padding: 0.4rem 1rem;
     font-size: 1.6rem;
-    margin: 0.6rem 0;
+    margin: 1rem 0;
     align-items: center;
-    width: 100%;
     justify-content: space-between;
+    border-radius: 0.8rem;
 }
 `;
 
@@ -44,6 +47,8 @@ const H3 = styled.h3`
 
 const Button = styled.button`
     & > svg {
+        width: 2.4rem;
+        height: 2.4rem;
         fill: #c00;
     }
 `;
@@ -57,13 +62,16 @@ const Transaction = ({ snack, setSnacks, index }: ITransactionProps) => {
                 height="56"
                 alt={snack.name}
             />
-            <span>{snack.name}</span>
+            <span>{snack.price} Kč</span>
             <Button onClick={() => setSnacks((prev) => {
                 const next = [...prev];
                 next.splice(index, 1);
                 return next;
             })}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><g className="color"><path d="M.44 28.73L28.73.44l2.83 2.83L3.27 31.56.44 28.73z"/><path d="M31.56 28.73L3.27.44.44 3.27l28.29 28.29 2.83-2.83z"/></g></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.439941 21.8575L21.8575 0.439941L24 2.58245L2.58245 24L0.439941 21.8575Z" />
+                <path d="M24 21.8575L2.58245 0.439941L0.439941 2.58245L21.8575 24L24 21.8575V21.8575Z" />
+            </svg>
             </Button>
         </ListItem>
     );
@@ -72,7 +80,7 @@ const Transaction = ({ snack, setSnacks, index }: ITransactionProps) => {
 export const TransactionList = ({ setSnacks, snacks }: ITransactionListProps) => {
     return (
         <Wrapper>
-            <H3>Kosik</H3>
+            <H3>Košík</H3>
             <UnorderedList>
                 {snacks.map((snack, i) => (
                     <Transaction

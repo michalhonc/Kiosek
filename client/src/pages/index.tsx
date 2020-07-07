@@ -32,6 +32,11 @@ const Name = styled.span`
     font-size: 1.6rem;
 `;
 
+const Price = styled.span`
+    font-size: 1.8rem;
+    font-weight: bold;
+`;
+
 const Header = styled.div`
     flex: 1;
     display: flex;
@@ -68,8 +73,8 @@ export const Index = () => {
             <Header>
                 <HeaderLeft>
                     <H1>Kiosek u Krastyho</H1>
-                    <Name>Nakupujici: {name}</Name>
-                    <span>Total: {snacks.reduce((a, b) => a + b.price, 0)}</span>
+                    <Name>Strávník: {name}</Name>
+                    <Price>Suma v košíku: {snacks.reduce((a, b) => a + b.price, 0)} Kč</Price>
                 </HeaderLeft>
                 <FaceAPI
                     setName={setName}

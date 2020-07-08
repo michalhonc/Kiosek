@@ -30,11 +30,13 @@ const Wrapper = styled.div`
 
 const Name = styled.span`
     font-size: 1.6rem;
+    margin: 0.8rem 0;
 `;
 
 const Price = styled.span`
     font-size: 1.8rem;
     font-weight: bold;
+    margin: 0.8rem 0;
 `;
 
 const Header = styled.div`
@@ -54,13 +56,14 @@ const HeaderLeft = styled.div`
 `;
 
 const H1 = styled.h1`
-    @font-face {
-        font-family: 'kiosekpicus';
-        src: URL('/public/kiosekpicus.otf') format('truetype');
-    }
+    font-family: 'kiosekpicus', Arial;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 
-    font-family: 'kiosekpicus';
-    font-size: 2.2rem;
+    &::first-letter {
+        font-size: 2.2rem;
+        color: #c00;
+    }
 `;
 
 export const Index = () => {
